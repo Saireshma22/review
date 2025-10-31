@@ -1,0 +1,29 @@
+name: AI PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run AI Review
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          pip install openai
+          echo "Analyzing Pull Request with AI..."
+          python - <<'PYCODE'
+          import openai, os
+          api_key = os.environ["OPENAI_API_KEY"]
+          client = openai.OpenAI(api_key=api_key)
+          pr_summary = "Code changes in PR..."
+          prompt = f"Provide constructive PR review comments for: {pr_summary}"
+          resp = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role":"user","content":prompt}])
+          print(resp.choices[0].message.content)
+          PYCODE
