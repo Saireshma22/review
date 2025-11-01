@@ -1,0 +1,19 @@
+import java.util.Scanner;
+
+class EvenOddChecker {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter an integer: "); // Prompt for user input
+        if (sc.hasNextInt()) { // Check if the input is an integer
+            int n = sc.nextInt();
+            if (n % 2 == 0) {
+                System.out.println("Even");
+            } else {
+                System.out.println("Odd");
+            }
+        } else {
+            System.out.println("Please enter a valid integer."); // Error message for invalid input
+        }
+        sc.close(); // Close the scanner to prevent resource leaks
+    }
+}
