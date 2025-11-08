@@ -1,1 +1,1 @@
-"# AI-PR-Review" 
+For checking of AI Pull Requests review comments 
